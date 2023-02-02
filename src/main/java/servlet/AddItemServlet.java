@@ -39,13 +39,13 @@ public class AddItemServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         User user = (User) req.getSession().getAttribute("user");
-
         String title = req.getParameter("title");
         String price1 = req.getParameter("price");
         double price = Double.parseDouble(price1);
         int catId = Integer.parseInt(req.getParameter("category_id"));
         Category category = categoryManager.getCategoryById(catId);
         Part profilePicPart = req.getPart("profilePic");
+
         String fileName = null;
         if (profilePicPart != null) {
             long nanoTime = System.nanoTime();

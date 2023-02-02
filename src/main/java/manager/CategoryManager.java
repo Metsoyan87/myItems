@@ -33,8 +33,8 @@ public class CategoryManager {
         String sql = "select * from category";
         List<Category> categories = new ArrayList<>();
         try {
-            PreparedStatement statement = connection.prepareStatement(sql);
-            ResultSet resultSet = statement.executeQuery();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
                 categories.add(getCategoryFromResultSet(resultSet));
@@ -48,8 +48,8 @@ public class CategoryManager {
     public Category getCategoryById(int id) {
         String sql = "select * from category where id = " + id;
         try {
-            PreparedStatement statement = connection.prepareStatement(sql);
-            ResultSet resultSet = statement.executeQuery();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
                 return getCategoryFromResultSet(resultSet);

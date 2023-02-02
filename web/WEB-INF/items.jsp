@@ -22,8 +22,8 @@
         <th>id</th>
         <th>title</th>
         <th>price</th>
-        <th>category Name</th>
-        <th>user Name</th>
+        <th>category Id</th>
+        <th>user ID</th>
         <th>action</th>
         <th>action</th>
     </tr>

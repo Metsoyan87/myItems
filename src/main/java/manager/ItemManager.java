@@ -91,14 +91,15 @@ public class ItemManager {
     }
 
     public void editItem(Item item) {
-        String sql = "update item set title = ?,price = ?,category_Id = ?, profile_pic=?,user_id=? WHERE id = ?";
+        String sql = "UPDATE item set title = ?,price = ?, profile_pic=? WHERE id = ?";  //,category_id = ?,user_id=?
         try {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, item.getTitle());
             ps.setDouble(2, item.getPrice());
-            ps.setInt(3, item.getCategory().getId());
-            ps.setString(4, item.getProfilePic());
-            ps.setInt(5, item.getUser().getId());
+//            ps.setInt(3, item.getCategory().getId());
+            ps.setString(3, item.getProfilePic());
+//            ps.setInt(5, item.getUser().getId());
+            ps.setInt(4, item.getId());
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -129,8 +130,8 @@ public class ItemManager {
         String sql = "select * from item where category_id=" + categoryId + " order by id desc limit 20";
         List<Item> result = new ArrayList<>();
         try {
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(sql);
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 result.add(Item.builder()
                         .id(resultSet.getInt(1))
@@ -150,8 +151,8 @@ public class ItemManager {
         String sql = "select * from item where user_id = " + userId;
         List<Item> result = new ArrayList<>();
         try {
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(sql);
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 result.add(Item.builder()
                         .id(resultSet.getInt(1))
